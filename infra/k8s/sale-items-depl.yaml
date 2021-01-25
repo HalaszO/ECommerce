@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sale-items-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sale-items
+  template:
+    metadata:
+      labels:
+        app: sale-items
+    spec:
+      containers:
+        - name: sale-items
+          image: us.gcr.io/ecommerce-dev-301013/sale-items
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sale-items-srv
+spec:
+  selector:
+    app: sale-items
+  ports:
+    - name: sale-items
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
