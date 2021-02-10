@@ -43,13 +43,13 @@ it("returns a 400 on missing credentials", async () => {
 });
 
 it("disallows duplicate emails", async () => {
-  await request(app).post("api/users/signup").send({
+  await request(app).post("/api/users/signup").send({
     email: "test@test.com",
     password: "p455w0rd",
   });
   expect(201);
 
-  await request(app).post("api/users/signup").send({
+  await request(app).post("/api/users/signup").send({
     email: "test@test.com",
     password: "p455w0rd",
   });
@@ -58,7 +58,7 @@ it("disallows duplicate emails", async () => {
 
 it("Sets a cookie following a successful signup", async () => {
   const response = await request(app)
-    .post("api/users/signup")
+    .post("/api/users/signup")
     .send({
       email: "test@test.com",
       password: "p455w0rd",

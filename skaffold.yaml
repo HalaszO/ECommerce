@@ -24,8 +24,8 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/sale-items
-      context: sale-items
+    - image: us.gcr.io/ecommerce-dev-301013/items
+      context: items
       docker:
         dockerfile: Dockerfile
       sync:

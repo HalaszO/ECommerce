@@ -3,11 +3,15 @@ import { json } from "body-parser";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 
-import { currentUserRouter } from "./routes/currentUser";
-import { signinRouter } from "./routes/signin";
-import { signupRouter } from "./routes/signup";
-import { signoutRouter } from "./routes/signout";
-import { errorHandler, ResourceNotFoundError } from "@ohalaszdev/common";
+import {
+  errorHandler,
+  ResourceNotFoundError,
+  currentUser,
+} from "@ohalaszdev/common";
+import { createItemRouter } from "./routes/create";
+import { getItemRouter } from "./routes/getItem";
+import { getAllItemsRouter } from "./routes/getAllItems";
+import { updateItemRouter } from "./routes/updateItem";
 
 const app = express();
 app.set("trust proxy", true); // To enable proxied traffic via nginx
@@ -19,10 +23,12 @@ app.use(
   })
 );
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+app.use(currentUser);
+
+app.use(createItemRouter);
+app.use(getItemRouter);
+app.use(getAllItemsRouter);
+app.use(updateItemRouter);
 
 // Invalid route
 app.all("*", async (req, res) => {

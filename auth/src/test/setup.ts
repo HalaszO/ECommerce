@@ -6,7 +6,7 @@ import request from "supertest";
 declare global {
   namespace NodeJS {
     interface Global {
-      signup(): Promise<string>;
+      signin(): Promise<string[]>;
     }
   }
 }
@@ -39,7 +39,7 @@ afterAll(async () => {
 });
 
 // global function for convenience
-global.signup = async () => {
+global.signin = async () => {
   const email = "test@test.com";
   const password = "p455w0rd";
   const response = await request(app)
@@ -49,6 +49,7 @@ global.signup = async () => {
       password: "p455w0rd",
     })
     .expect(201);
-  const cookie = response.get("Set-Coookie");
+
+  const cookie = response.get("Set-Cookie");
   return cookie;
 };
