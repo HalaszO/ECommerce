@@ -8,10 +8,10 @@ import {
   ResourceNotFoundError,
   currentUser,
 } from "@ohalaszdev/common";
-import { createItemRouter } from "./routes/create";
-import { getItemRouter } from "./routes/get";
-import { getAllItemsRouter } from "./routes/getAll";
-import { updateItemRouter } from "./routes/update";
+import { createOrderRouter } from "./routes/create";
+import { cancelOrderRouter } from "./routes/cancel";
+import { getOrderRouter } from "./routes/get";
+import { getAllOrdersRouter } from "./routes/getAll";
 
 const app = express();
 app.set("trust proxy", true); // To enable proxied traffic via nginx
@@ -25,10 +25,10 @@ app.use(
 
 app.use(currentUser);
 
-app.use(createItemRouter);
-app.use(getItemRouter);
-app.use(getAllItemsRouter);
-app.use(updateItemRouter);
+app.use(createOrderRouter);
+app.use(cancelOrderRouter);
+app.use(getOrderRouter);
+app.use(getAllOrdersRouter);
 
 // Invalid route
 app.all("*", async (req, res) => {
