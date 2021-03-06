@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 import { OrderStatus } from "@ohalaszdev/common";
 import { ItemDoc } from "./item";
+import { DOCUMENT_VERSION_INCREMENT } from "./versionIncrement";
 
-export { OrderStatus };
-
-const DOCUMENT_VERSION_INCREMENT = 1;
+export { OrderStatus, DOCUMENT_VERSION_INCREMENT };
 
 interface OrderAttrs {
   userId: string;
@@ -60,12 +59,14 @@ const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
 orderSchema.set("versionKey", "version");
 
 // Custom pre-save hook
-// Modifying mongoose-mongoDB query for saving so the version number is checked as well
+// Automatically increment version upon saving
+// Modifying mongoose -> mongoDB query for saving so the version number is checked as well
 // (querying for the document version minus the increment)
 orderSchema.pre("save", function (done) {
-  this.$where = {
-    version: this.get("version") - DOCUMENT_VERSION_INCREMENT,
-  };
+  (this.version += DOCUMENT_VERSION_INCREMENT),
+    (this.$where = {
+      version: this.get("version") - DOCUMENT_VERSION_INCREMENT,
+    });
   done();
 });
 
@@ -86,4 +87,4 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 
 const Order = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
 
-export { Order, DOCUMENT_VERSION_INCREMENT };
+export { Order };

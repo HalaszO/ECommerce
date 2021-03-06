@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ohalaszdev/common": "^1.0.18",
+    "@ohalaszdev/common": "^1.0.20",
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.11",
     "@types/jsonwebtoken": "^8.5.0",
@@ -27,7 +27,7 @@
     "express-async-errors": "^3.1.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.18",
+    "mongoose": "^5.11.19",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.1.1",
     "typescript": "^3.9.9"

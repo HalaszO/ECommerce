@@ -14,9 +14,7 @@ export class ItemCreatedListener extends Listener<ItemCreatedEvent> {
       title,
       price,
     });
-    console.log(`item version before saving: ${item.version}`);
     await item.save();
-    console.log(`item version after saving: ${item.version}`);
     msg.ack();
   }
 }

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import { DOCUMENT_VERSION_INCREMENT } from "./versionIncrement";
+export { DOCUMENT_VERSION_INCREMENT };
 
 interface ItemAttrs {
   title: string;
@@ -12,10 +13,12 @@ interface ItemDoc extends mongoose.Document {
   price: number;
   userId: string;
   version: number;
+  orderId?: string;
 }
 
 interface ItemModel extends mongoose.Model<ItemDoc> {
   build(attrs: ItemAttrs): ItemDoc;
+  findByEvent(event: { id: string; version: number }): Promise<ItemDoc | null>;
 }
 
 const itemSchema = new mongoose.Schema<ItemDoc, ItemModel>(
@@ -32,6 +35,9 @@ const itemSchema = new mongoose.Schema<ItemDoc, ItemModel>(
       type: String,
       required: true,
     },
+    orderId: {
+      type: String,
+    },
   },
   {
     toJSON: {
@@ -45,7 +51,28 @@ const itemSchema = new mongoose.Schema<ItemDoc, ItemModel>(
 );
 
 itemSchema.set("versionKey", "version");
-itemSchema.plugin(updateIfCurrentPlugin);
+// Custom pre-save hook
+// Automatically increment version upon saving
+// Modifying mongoose-mongoDB query for saving so the version number is checked as well
+// (querying for the document version minus the increment)
+itemSchema.pre("save", function (done) {
+  (this.version += DOCUMENT_VERSION_INCREMENT),
+    (this.$where = {
+      version: this.get("version") - DOCUMENT_VERSION_INCREMENT,
+    });
+  done();
+});
+
+// Custom mongoose query to find the document based on the event data
+itemSchema.statics.findByEvent = async (event: {
+  id: string;
+  version: number;
+}) => {
+  return Item.findOne({
+    _id: event.id,
+    version: event.version - DOCUMENT_VERSION_INCREMENT,
+  });
+};
 
 itemSchema.statics.build = (attrs: ItemAttrs) => {
   return new Item(attrs);

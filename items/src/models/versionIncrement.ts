@@ -1,0 +1,1 @@
+export const DOCUMENT_VERSION_INCREMENT = 1;
