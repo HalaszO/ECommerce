@@ -7,8 +7,9 @@ import {
   ResourceNotFoundError,
   requireAuth,
   NotAuthorizedError,
+  BadRequestError,
 } from "@ohalaszdev/common";
-import { Item } from "../models/item";
+import { DOCUMENT_VERSION_INCREMENT, Item } from "../models/item";
 
 const router = express.Router();
 
@@ -33,9 +34,16 @@ router.put(
       throw new NotAuthorizedError();
     }
 
+    if (item.orderId) {
+      throw new BadRequestError(
+        "Cannot edit: item currently has an order placed on it"
+      );
+    }
+
     item.set({
       title: req.body.title,
       price: req.body.price,
+      version: item.version + DOCUMENT_VERSION_INCREMENT,
     });
 
     await item.save();

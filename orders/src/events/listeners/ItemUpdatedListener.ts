@@ -17,6 +17,7 @@ export class ItemUpdatedListener extends Listener<ItemUpdatedEvent> {
 
     // Saving updated item
     item.set({ title, price, version });
+
     await item.save();
 
     // ack to NATS

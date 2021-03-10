@@ -1,7 +1,7 @@
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./QueueGroupName";
 import { Listener, OrderCancelledEvent, Subjects } from "@ohalaszdev/common";
-import { Item } from "../../models/item";
+import { DOCUMENT_VERSION_INCREMENT, Item } from "../../models/item";
 import { ItemUpdatedPublisher } from "../publishers/ItemUpdatedPublisher";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
@@ -17,6 +17,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     // Set the orderId to undefined since the order was cancelled
     item.set({
       orderId: undefined,
+      version: item.version + DOCUMENT_VERSION_INCREMENT,
     });
     await item.save();
 

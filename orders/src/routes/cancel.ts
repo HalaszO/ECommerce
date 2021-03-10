@@ -8,7 +8,7 @@ import {
 } from "@ohalaszdev/common";
 import express, { Request, Response } from "express";
 import { param } from "express-validator";
-import { Order } from "../models/order";
+import { DOCUMENT_VERSION_INCREMENT, Order } from "../models/order";
 import { OrderCancelledPublisher } from "../events/publishers/OrderCancelledPublisher";
 import { natsWrapper } from "../natsWrapper";
 
@@ -39,7 +39,7 @@ router.patch(
     order.set({
       status: OrderStatus.Cancelled,
       expiresAt: new Date(), // now
-      version: order.version,
+      version: order.version + DOCUMENT_VERSION_INCREMENT, // increment version number
     });
     // To-do: graceful handling of version clashes upon multiple "cancel" calls at the same time?
     // Is it needed?

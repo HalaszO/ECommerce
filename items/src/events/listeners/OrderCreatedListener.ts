@@ -1,7 +1,7 @@
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./QueueGroupName";
 import { Listener, OrderCreatedEvent, Subjects } from "@ohalaszdev/common";
-import { Item } from "../../models/item";
+import { DOCUMENT_VERSION_INCREMENT, Item } from "../../models/item";
 import { ItemUpdatedPublisher } from "../publishers/ItemUpdatedPublisher";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
@@ -17,6 +17,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     // Set the orderId belonging to the item
     item.set({
       orderId: data.id,
+      version: item.version + DOCUMENT_VERSION_INCREMENT,
     });
     await item.save();
 

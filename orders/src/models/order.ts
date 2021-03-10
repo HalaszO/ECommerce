@@ -59,14 +59,12 @@ const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
 orderSchema.set("versionKey", "version");
 
 // Custom pre-save hook
-// Automatically increment version upon saving
 // Modifying mongoose -> mongoDB query for saving so the version number is checked as well
 // (querying for the document version minus the increment)
 orderSchema.pre("save", function (done) {
-  (this.version += DOCUMENT_VERSION_INCREMENT),
-    (this.$where = {
-      version: this.get("version") - DOCUMENT_VERSION_INCREMENT,
-    });
+  this.$where = {
+    version: this.get("version") - DOCUMENT_VERSION_INCREMENT,
+  };
   done();
 });
 

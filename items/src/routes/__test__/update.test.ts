@@ -2,7 +2,7 @@ import { natsWrapper } from "./../../natsWrapper";
 import request from "supertest";
 import app from "../../app";
 import mongoose from "mongoose";
-import { Item } from "../../models/item";
+import { DOCUMENT_VERSION_INCREMENT, Item } from "../../models/item";
 
 jest.mock("../../natsWrapper");
 
@@ -106,6 +106,37 @@ it("updates the ticket if valid attributes are provided", async () => {
     .send();
   expect(itemResponse.body.title).toEqual(newTitle);
   expect(itemResponse.body.price).toEqual(newPrice);
+});
+
+it("Will not allow updates if item has on order on it", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/items")
+    .set("Cookie", cookie)
+    .send({
+      title: "Waffle maker",
+      price: 49,
+    });
+
+  // Adding an orderId to item
+  const item = await Item.findById(response.body.id);
+  item!.set({
+    orderId: mongoose.Types.ObjectId().toHexString(),
+    version: item!.version + DOCUMENT_VERSION_INCREMENT,
+  });
+  await item!.save();
+
+  const newTitle = "Waffle maker and contact grill";
+  const newPrice = 69;
+  await request(app)
+    .put(`/api/items/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send({
+      title: newTitle,
+      price: newPrice,
+    })
+    .expect(400);
 });
 
 it("publishes event on update", async () => {
