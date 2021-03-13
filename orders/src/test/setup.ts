@@ -12,6 +12,7 @@ declare global {
   }
 }
 
+// Use the mock nats server instance for testing
 jest.mock("../natsWrapper");
 
 let mongo: MongoMemoryServer;

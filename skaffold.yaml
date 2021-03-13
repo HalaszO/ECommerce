@@ -7,6 +7,7 @@ deploy:
 build:
   googleCloudBuild:
     projectId: ecommerce-dev-301013
+    concurrency: 0
   artifacts:
     - image: us.gcr.io/ecommerce-dev-301013/auth
       context: auth

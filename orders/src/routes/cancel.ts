@@ -47,6 +47,7 @@ router.patch(
     await order.save();
 
     // Publishing order:cancelled event
+    // Response is not dependent on the result/success of publishing
     new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order.id,
       userId: order.userId,

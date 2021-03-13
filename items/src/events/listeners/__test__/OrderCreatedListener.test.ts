@@ -25,10 +25,7 @@ const init = async () => {
     userId: new mongoose.Types.ObjectId().toHexString(),
     expiresAt: expiresAt.toISOString(),
     version: 0,
-    item: {
-      id: item.id,
-      price: item.price,
-    },
+    item,
   };
   // Only need ack function and Message type, so type error should be ignored this once
   // @ts-ignore
