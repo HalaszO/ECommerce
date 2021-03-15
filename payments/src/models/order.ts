@@ -1,22 +1,22 @@
-import mongoose from "mongoose";
 import { OrderStatus } from "@ohalaszdev/common";
-import { ItemDoc } from "./item";
+import mongoose from "mongoose";
 import { DOCUMENT_VERSION_INCREMENT } from "./versionIncrement";
 // Re-exporting
 export { OrderStatus, DOCUMENT_VERSION_INCREMENT };
 
 interface OrderAttrs {
-  userId: string;
+  id: string;
   status: OrderStatus;
-  expiresAt: Date;
-  item: ItemDoc;
+  price: number;
+  userId: string;
 }
 
 interface OrderDoc extends mongoose.Document {
-  userId: string;
+  id: string;
   status: OrderStatus;
-  expiresAt: Date;
-  item: ItemDoc;
+  price: number;
+  userId: string;
+
   version: number;
 }
 
@@ -26,23 +26,21 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 
 const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
   {
-    userId: {
+    id: {
       type: String,
       required: true,
     },
     status: {
+      type: OrderStatus,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    userId: {
       type: String,
       required: true,
-      enum: Object.values(OrderStatus),
-      default: OrderStatus.Created,
-    },
-    expiresAt: {
-      type: mongoose.Schema.Types.Date,
-      required: false,
-    },
-    item: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Item",
     },
   },
   {
@@ -68,19 +66,13 @@ orderSchema.pre("save", function (done) {
   done();
 });
 
-// Custom mongoose query to find the document based on the event data
-orderSchema.statics.findByEvent = async (event: {
-  id: string;
-  version: number;
-}) => {
-  return Order.findOne({
-    _id: event.id,
-    version: event.version - DOCUMENT_VERSION_INCREMENT,
-  });
-};
-
 orderSchema.statics.build = (attrs: OrderAttrs) => {
-  return new Order(attrs);
+  return new Order({
+    _id: attrs.id,
+    status: attrs.status,
+    price: attrs.price,
+    userId: attrs.userId,
+  });
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>("Order", orderSchema);
