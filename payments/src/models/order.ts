@@ -12,24 +12,19 @@ interface OrderAttrs {
 }
 
 interface OrderDoc extends mongoose.Document {
-  id: string;
   status: OrderStatus;
   price: number;
   userId: string;
-
   version: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
+  findByEvent(data: { id: string; version: number }): Promise<OrderDoc | null>;
 }
 
 const orderSchema = new mongoose.Schema<OrderDoc, OrderModel>(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     status: {
       type: OrderStatus,
       required: true,
@@ -65,6 +60,16 @@ orderSchema.pre("save", function (done) {
   };
   done();
 });
+
+orderSchema.statics.findByEvent = async (data: {
+  id: string;
+  version: number;
+}) => {
+  return Order.findOne({
+    _id: data.id,
+    version: data.version - DOCUMENT_VERSION_INCREMENT,
+  });
+};
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({
