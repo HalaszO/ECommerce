@@ -5,7 +5,7 @@ import {
   Subjects,
 } from "@ohalaszdev/common";
 import { Message } from "node-nats-streaming";
-import { Order } from "../../models/order";
+import { DOCUMENT_VERSION_INCREMENT, Order } from "../../models/order";
 import { queueGroupName } from "./queueGroupName";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
@@ -17,7 +17,10 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     if (!order) {
       throw new Error("Order not found");
     }
-    order.set({ status: OrderStatus.Cancelled });
+    order.set({
+      status: OrderStatus.Cancelled,
+      version: order.version + DOCUMENT_VERSION_INCREMENT,
+    });
     await order.save();
     // Todo: Cancel payment
 
