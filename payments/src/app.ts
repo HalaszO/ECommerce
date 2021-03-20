@@ -8,6 +8,7 @@ import {
   ResourceNotFoundError,
   currentUser,
 } from "@ohalaszdev/common";
+import { CreateChargeRouter } from "./routes/create";
 
 const app = express();
 app.set("trust proxy", true); // To enable proxied traffic via nginx
@@ -20,6 +21,8 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use(CreateChargeRouter);
 
 // Invalid route
 app.all("*", async (req, res) => {

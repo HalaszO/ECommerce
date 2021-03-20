@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.19",
     "node-nats-streaming": "^0.3.2",
+    "stripe": "^8.138.0",
     "ts-node-dev": "^1.1.1",
     "typescript": "^3.9.9"
   },
