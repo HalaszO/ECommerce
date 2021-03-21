@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import app from "../app";
 import request from "supertest";
 import jwt from "jsonwebtoken";
+import { config } from "dotenv";
 
 declare global {
   namespace NodeJS {
@@ -11,6 +12,10 @@ declare global {
     }
   }
 }
+
+// Load .env with Stripe test-API key as soon as possible
+// This key should not be stored in a repository
+config();
 
 // Use the mock nats server instance for testing
 jest.mock("../natsWrapper");
