@@ -56,7 +56,6 @@ router.post(
 
     // Publish the event of order:created
     // Response is not dependent on the result/success of publishing
-    console.log("Test, publishing");
     new OrderCreatedPublisher(natsWrapper.client).publish({
       id: order.id,
       status: order.status,

@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
+import { PaymentCreatedPublisher } from "../../events/publishers/PaymentCreatedPublisher";
 import { Order, OrderStatus } from "../../models/order";
+import { Payment } from "../../models/payment";
+import { natsWrapper } from "../../natsWrapper";
 import { stripe } from "../../stripe";
-
-//jest.mock("../../stripe");
 
 it("Returns a 404 if the order is not found", async () => {
   await request(app)
@@ -49,7 +50,7 @@ it("Returns a 400 when trying to purchase a cancelled order", async () => {
     .expect(400);
 });
 
-it("Creates a charge using stripe", async () => {
+it("Returns 201 and creates a charge using stripe", async () => {
   const price = Math.floor(Math.random() * 1000000);
   const order = Order.build({
     id: mongoose.Types.ObjectId().toHexString(),
@@ -71,4 +72,52 @@ it("Creates a charge using stripe", async () => {
   });
   expect(createdCharge).toBeDefined();
   expect(createdCharge!.currency).toEqual("eur");
+});
+
+it("Creates a payment after a charge", async () => {
+  const price = Math.floor(Math.random() * 1000000);
+  const order = Order.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    status: OrderStatus.Created,
+    price,
+    userId: mongoose.Types.ObjectId().toHexString(),
+  });
+  await order.save();
+
+  await request(app)
+    .post("/api/payments")
+    .set("Cookie", global.signin(order.userId))
+    .send({ token: "tok_visa", orderId: order.id })
+    .expect(201);
+
+  const charges = await stripe.charges.list({ limit: 50 });
+  const createdCharge = charges.data.find((charge) => {
+    return charge.amount === price * 100; // 100 multiplier for stripe (smallest currency unit policy)
+  });
+  expect(createdCharge).toBeDefined();
+  expect(createdCharge!.currency).toEqual("eur");
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: createdCharge!.id,
+  });
+  expect(payment).not.toBeNull();
+});
+
+it("Publishes a payment:created event", async () => {
+  const price = Math.floor(Math.random() * 1000000);
+  const order = Order.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    status: OrderStatus.Created,
+    price,
+    userId: mongoose.Types.ObjectId().toHexString(),
+  });
+  await order.save();
+
+  await request(app)
+    .post("/api/payments")
+    .set("Cookie", global.signin(order.userId))
+    .send({ token: "tok_visa", orderId: order.id })
+    .expect(201);
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

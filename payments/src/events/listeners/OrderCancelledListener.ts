@@ -22,7 +22,6 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       version: order.version + DOCUMENT_VERSION_INCREMENT,
     });
     await order.save();
-    // Todo: Cancel payment
 
     msg.ack();
   }

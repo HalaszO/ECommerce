@@ -10,6 +10,9 @@ import {
 } from "@ohalaszdev/common";
 import { Order } from "../models/order";
 import { stripe } from "../stripe";
+import { Payment } from "../models/payment";
+import { PaymentCreatedPublisher } from "../events/publishers/PaymentCreatedPublisher";
+import { natsWrapper } from "../natsWrapper";
 
 const router = express.Router();
 
@@ -35,13 +38,24 @@ router.post(
       );
     }
 
-    await stripe.charges.create({
+    const charge = await stripe.charges.create({
       currency: "eur",
       amount: order.price * 100,
       source: token,
     });
+    const payment = await Payment.build({
+      orderId,
+      stripeId: charge.id,
+    });
+    await payment.save();
 
-    res.status(201).send({ success: true });
+    new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId,
+      stripeId: charge.id,
+    });
+
+    res.status(201).send({ paymentId: payment.id, success: true });
   }
 );
 
