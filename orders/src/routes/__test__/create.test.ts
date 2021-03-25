@@ -41,7 +41,7 @@ it("returns an error if the item is already reserved", async () => {
   });
   await item.save();
 
-  const expiresAt = new Date(); // now
+  /*const expiresAt = new Date(); // now
   expiresAt.setSeconds(expiresAt.getSeconds() + 30 * 60);
   const order = Order.build({
     item,
@@ -49,7 +49,13 @@ it("returns an error if the item is already reserved", async () => {
     status: OrderStatus.Created,
     expiresAt,
   });
-  await order.save();
+  await order.save();*/
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signin())
+    .send({ itemId: item.id })
+    .expect(201);
 
   await request(app)
     .post("/api/orders")

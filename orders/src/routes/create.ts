@@ -39,6 +39,7 @@ router.post(
 
     // Reserve item
     const isItemReserved = await item.isReserved();
+    console.log(`Item reserved status: ${isItemReserved}`);
     if (isItemReserved) {
       throw new BadRequestError("Item already reserved, cannot initiate order");
     }
