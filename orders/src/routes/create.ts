@@ -34,7 +34,7 @@ router.post(
     // Get the item from the DB
     const item = await Item.findById(itemId);
     if (!item) {
-      throw new ResourceNotFoundError();
+      throw new BadRequestError("Item not found");
     }
 
     // Reserve item
