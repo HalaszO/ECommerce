@@ -22,6 +22,7 @@ export default ({ currentUser }) => {
       <Link href="/">
         <a className="navbar-brand">Ecommerce</a>
       </Link>
+      {currentUser && <div>Hello there, {currentUser.email}!</div>}
       <div className="d-flex justify-content-end">
         <ul className="nav d-flex align-items-center">{links}</ul>
       </div>

@@ -1,24 +1,31 @@
 import "bootstrap/dist/css/bootstrap.css";
-import buildClient from "../api/buildClient";
+import buildClientFromCtx from "../api/buildClientFromCtx";
 import Header from "../components/header";
 
 const appComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
       <Header currentUser={currentUser} />
-      <Component {...pageProps} />;
+      <div className="container">
+        <Component currentUser={currentUser} {...pageProps} />
+      </div>
     </div>
   );
 };
 
 appComponent.getInitialProps = async (appContext) => {
-  const { data } = await buildClient(appContext.ctx).get(
-    "/api/users/currentuser"
-  );
+  const client = buildClientFromCtx(appContext.ctx); // ctx: (req, res); Getting client based on context (browser or server)
+
+  const { data } = await client.get("/api/users/currentuser"); // currentUser is passed to all components as initial props
 
   let pageProps = {};
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    // Checking if inital props are required for the component
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      client,
+      data.currentUser
+    );
   }
 
   return {
