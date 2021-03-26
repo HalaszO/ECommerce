@@ -1,12 +1,14 @@
+import Router from "next/router";
 import useRequest from "../../hooks/useRequest";
-const itemDisplay = ({ item }) => {
+const ItemDisplay = ({ item }) => {
   const { submitRequest, errors } = useRequest({
     url: "/api/orders",
     method: "post",
     body: {
       itemId: item.id,
     },
-    onSuccess: (res) => console.log(res),
+    onSuccess: (order) =>
+      Router.push("/orders/[orderId]", `/orders/${order.id}`),
   });
 
   return (
@@ -21,11 +23,11 @@ const itemDisplay = ({ item }) => {
   );
 };
 
-itemDisplay.getInitialProps = async (context, client) => {
+ItemDisplay.getInitialProps = async (context, client) => {
   const { itemId } = context.query;
   const { data } = await client.get(`/api/items/${itemId}`);
 
   return { item: data };
 };
 
-export default itemDisplay;
+export default ItemDisplay;
