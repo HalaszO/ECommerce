@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { body } from "express-validator";
 import {
   requireAuth,
@@ -37,13 +37,14 @@ router.post(
         "Order was cancelled before it could be paid for"
       );
     }
-
+    console.log(`Token: ${JSON.stringify(token)}, orderId: ${orderId}`);
     const charge = await stripe.charges.create({
       currency: "eur",
       amount: order.price * 100,
-      source: token,
+      source: token.id,
     });
-    const payment = await Payment.build({
+
+    const payment = Payment.build({
       orderId,
       stripeId: charge.id,
     });
@@ -51,7 +52,7 @@ router.post(
 
     new PaymentCreatedPublisher(natsWrapper.client).publish({
       id: payment.id,
-      orderId,
+      orderId: payment.orderId,
       stripeId: charge.id,
     });
 

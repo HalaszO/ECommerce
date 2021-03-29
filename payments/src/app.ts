@@ -19,7 +19,6 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
-
 app.use(currentUser);
 
 app.use(CreateChargeRouter);

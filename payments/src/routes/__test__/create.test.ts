@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
-import { PaymentCreatedPublisher } from "../../events/publishers/PaymentCreatedPublisher";
 import { Order, OrderStatus } from "../../models/order";
 import { Payment } from "../../models/payment";
 import { natsWrapper } from "../../natsWrapper";
