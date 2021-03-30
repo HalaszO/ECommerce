@@ -12,7 +12,7 @@ it("returns item if found", async () => {
   // Creating document in DB
   const title = "Waffle maker";
   const price = 42;
-  const userId = "4555gsgf464553";
+  const userId = new mongoose.Types.ObjectId().toHexString();
   const item = Item.build({
     title,
     price,

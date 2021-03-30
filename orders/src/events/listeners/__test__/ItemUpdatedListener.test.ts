@@ -63,6 +63,8 @@ it("Does not ack msg if the event skipped a version", async () => {
 
   data.version = 1000;
 
+  // Workaround for catching errors
+  // Jest expect().toThrow is not working as intended
   try {
     await listener.onMessage(data, message);
   } catch (err) {}

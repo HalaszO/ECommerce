@@ -16,7 +16,7 @@ const ItemDisplay = ({ item }) => {
       <h1>{item.title}</h1>
       <h4>{item.price} EUR</h4>
       {errors}
-      <button onClick={submitRequest} className="btn btn-primary">
+      <button onClick={() => submitRequest()} className="btn btn-primary">
         Buy
       </button>
     </div>

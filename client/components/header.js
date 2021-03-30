@@ -1,9 +1,12 @@
 import Link from "next/link";
 
-export default ({ currentUser }) => {
+const HeaderComponent = ({ currentUser }) => {
   const links = [
     !currentUser && { label: "Sign up", href: "/auth/signup" },
     !currentUser && { label: "Sign in", href: "/auth/signin" },
+    currentUser && { label: "Sell an item", href: "/items/create" },
+    currentUser && { label: "My items", href: "/user/items" },
+    currentUser && { label: "My orders", href: "/orders" },
     currentUser && { label: "Sign out", href: "/auth/signout" },
   ]
     .filter((linkConfig) => linkConfig)
@@ -29,3 +32,5 @@ export default ({ currentUser }) => {
     </nav>
   );
 };
+
+export default HeaderComponent;

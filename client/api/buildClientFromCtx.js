@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default ({ req }) => {
+const buildClientFromCtx = ({ req }) => {
   // Deciding whether we are on the server or the client
   if (typeof window === "undefined") {
     return axios.create({
@@ -13,3 +13,5 @@ export default ({ req }) => {
     });
   }
 };
+
+export default buildClientFromCtx;

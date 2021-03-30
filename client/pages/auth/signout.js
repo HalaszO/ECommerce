@@ -7,7 +7,7 @@ export default () => {
     url: "/api/users/signout",
     method: "post",
     body: {},
-    onSuccess: () => setTimeout(async () => await Router.push("/"), 1000),
+    onSuccess: () => setTimeout(async () => await Router.push("/"), 0),
   });
   useEffect(() => {
     submitRequest();

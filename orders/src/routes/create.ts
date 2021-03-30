@@ -39,7 +39,6 @@ router.post(
 
     // Reserve item
     const isItemReserved = await item.isReserved();
-    console.log(`Item reserved status: ${isItemReserved}`);
     if (isItemReserved) {
       throw new BadRequestError("Item already reserved, cannot initiate order");
     }
@@ -54,6 +53,8 @@ router.post(
       item,
     });
     await order.save();
+
+    console.log("Before publishing the event");
 
     // Publish the event of order:created
     // Response is not dependent on the result/success of publishing
