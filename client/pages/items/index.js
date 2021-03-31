@@ -11,7 +11,7 @@ const ItemsDisplay = ({ items }) => {
         return (
           <div
             key={item.id}
-            className="my-4 mx-4 px-4 py-4 border border-info bg-light"
+            className="my-4 mx-4 px-4 py-4 border border-info bg-light shadow-sm"
           >
             <h3>{item.title}</h3>
             <h4>Price: {item.price} EUR</h4>
