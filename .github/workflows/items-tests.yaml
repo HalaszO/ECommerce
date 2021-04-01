@@ -1,0 +1,11 @@
+name: items-tests
+
+on: 
+  pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd items && npm install && npm run test:ci
