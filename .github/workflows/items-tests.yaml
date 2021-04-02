@@ -1,7 +1,9 @@
 name: items-tests
 
-on: 
-  pull_request
+on:
+  pull_request:
+    paths:
+      - /items/**
 
 jobs:
   build:
