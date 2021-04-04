@@ -18,5 +18,19 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push oliverhalasz/ecom-auth
+      - uses: digitalocean/action-doctl@v2  #DO github action, installing doctl
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save k8s-ecommerce
+      - run: kubectl rollout restart deployment auth-depl
+      
+      
+      
+      
+      
+      
+      
+      
+      
     
       
