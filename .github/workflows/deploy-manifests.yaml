@@ -5,16 +5,15 @@ on:
     branches:
       - master
     paths:
-      - "auth/**"
-      
+      - "infra/**"
+
 jobs:
   build:
     runs-on: ubuntu-latest #build agent image
     steps:
       - uses: actions/checkout@v2
-      - uses: digitalocean/action-doctl@v2  #DO github action, installing doctl
+      - uses: digitalocean/action-doctl@v2 #DO github action, installing doctl
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save k8s-ecommerce
       - run: kubectl apply -f infra/k8s/** && kubectl apply -f infra/k8s-prd/**
-      
