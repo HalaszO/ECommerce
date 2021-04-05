@@ -31,8 +31,8 @@ spec:
               serviceName: client-srv
               servicePort: 3000
 ---
-# This service maps to the ingress-srv
-# It exists in the default namespace unlike the ingress-srv
+# External name service to map to the ingress-srv (to have a shorter name for the ingress-srv)
+# Exists in the default namespace unlike the ingress-srv
 kind: Service
 apiVersion: v1
 metadata:
