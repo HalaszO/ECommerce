@@ -3,9 +3,7 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/*
-      - ./infra/k8s/apps
-      - ./infra/k8s/databases
+      - ./infra/**
 build:
   googleCloudBuild:
     projectId: ecommerce-dev-301013
