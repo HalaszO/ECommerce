@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: us.gcr.io/ecommerce-dev-301013/orders
+          image: oliverhalasz/ecom-orders
           env:
             - name: MONGO_URI
               value: "mongodb://orders-mongo-srv:27017/orders"

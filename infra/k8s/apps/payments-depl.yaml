@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: us.gcr.io/ecommerce-dev-301013/payments
+          image: oliverhalasz/ecom-payments
           env:
             - name: MONGO_URI
               value: "mongodb://payments-mongo-srv:27017/payments"

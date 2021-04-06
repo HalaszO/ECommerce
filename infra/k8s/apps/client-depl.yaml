@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/ecommerce-dev-301013/client
+          image: oliverhalasz/ecom-client
           env:
             - name: JWT_KEY
               valueFrom:
