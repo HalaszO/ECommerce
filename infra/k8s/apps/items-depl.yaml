@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: items
-          image: us.gcr.io/ecommerce-dev-301013/items
+          image: oliverhalasz/ecom-items
           env:
             - name: MONGO_URI
               value: "mongodb://items-mongo-srv:27017/items"
