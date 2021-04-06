@@ -1,25 +1,25 @@
-name: deploy-auth
+name: deploy-payments
 
 on:
   push:
     branches:
       - master
     paths:
-      - "auth/**"
+      - "payments/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest #build agent image
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && docker build -t oliverhalasz/ecom-auth .
+      - run: cd payments && docker build -t oliverhalasz/ecom-payments .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push oliverhalasz/ecom-auth
+      - run: docker push oliverhalasz/ecom-payments
       - uses: digitalocean/action-doctl@v2 #DO github action, installing doctl
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save k8s-ecommerce
-      - run: kubectl rollout restart deployment auth-depl
+      - run: kubectl rollout restart deployment payments-depl

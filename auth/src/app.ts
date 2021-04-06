@@ -24,7 +24,7 @@ app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 
-// Invalid route
+// Defaulting to invalid route
 app.all("*", async (req, res) => {
   throw new ResourceNotFoundError();
 });
