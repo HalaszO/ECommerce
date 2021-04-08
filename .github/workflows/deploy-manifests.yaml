@@ -16,7 +16,5 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save k8s-ecommerce
-      - run: kubectl apply -f infra/k8s
-      - run: kubectl apply -f infra/k8s/apps
-      - run: kubectl apply -f infra/k8s/databases 
+      - run: kubectl apply -R -f infra/k8s/
       - run: kubectl apply -f infra/k8s-prd

@@ -4,7 +4,7 @@ const buildClientFromCtx = ({ req }) => {
   // Deciding whether we are on the server or the client
   if (typeof window === "undefined") {
     return axios.create({
-      baseURL: "http://ingress-nginx-srv",
+      baseURL: "http://www.ecommerce-app-prd.xyz/",
       headers: req.headers,
     });
   } else {
