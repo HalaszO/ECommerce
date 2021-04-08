@@ -44,6 +44,7 @@ metadata:
 spec:
   selector:
     app: payments
+  type: ClusterIP
   ports:
     - name: payments
       protocol: TCP

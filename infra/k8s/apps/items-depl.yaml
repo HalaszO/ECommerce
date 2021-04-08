@@ -39,6 +39,7 @@ metadata:
 spec:
   selector:
     app: items
+  type: ClusterIP
   ports:
     - name: items
       protocol: TCP

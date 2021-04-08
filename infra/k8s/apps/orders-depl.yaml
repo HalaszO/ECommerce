@@ -39,6 +39,7 @@ metadata:
 spec:
   selector:
     app: orders
+  type: ClusterIP
   ports:
     - name: orders
       protocol: TCP
