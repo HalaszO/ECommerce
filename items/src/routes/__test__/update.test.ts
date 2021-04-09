@@ -80,7 +80,7 @@ it("returns 400 if invalid item attributes are provided", async () => {
     .expect(400);
 });
 
-it("updates the ticket if valid attributes are provided", async () => {
+it("updates the item if valid attributes are provided", async () => {
   const cookie = global.signin();
 
   const response = await request(app)
