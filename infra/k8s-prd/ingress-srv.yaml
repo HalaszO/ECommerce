@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-service
@@ -12,24 +12,34 @@ spec:
         paths:
           - path: /api/users/?(.*)
             backend:
-              serviceName: auth-srv
-              servicePort: 3000
+              service:
+                name: auth-srv
+                port: 
+                  number: 3000
           - path: /api/items/?(.*)
             backend:
-              serviceName: items-srv
-              servicePort: 3000
+              service:
+                name: items-srv
+                port:
+                  number: 3000
           - path: /api/orders/?(.*)
             backend:
-              serviceName: orders-srv
-              servicePort: 3000
+              service
+                name: orders-srv
+                port:
+                  number: 3000
           - path: /api/payments/?(.*)
             backend:
-              serviceName: payments-srv
-              servicePort: 3000
+              service:
+                name: payments-srv
+                port: 
+                  number: 3000
           - path: /?(.*)
             backend:
-              serviceName: client-srv
-              servicePort: 3000
+              service:
+                name: client-srv
+                port:
+                  number: 3000
 ---
 # External name service to map to the ingress-srv (to have a shorter name for the ingress-srv)
 # Exists in the default namespace unlike the ingress-srv
