@@ -14,7 +14,7 @@ spec:
             backend:
               service:
                 name: auth-srv
-                port: 
+                port:
                   number: 3000
           - path: /api/items/?(.*)
             backend:
@@ -24,7 +24,7 @@ spec:
                   number: 3000
           - path: /api/orders/?(.*)
             backend:
-              service
+              service:
                 name: orders-srv
                 port:
                   number: 3000
@@ -32,7 +32,7 @@ spec:
             backend:
               service:
                 name: payments-srv
-                port: 
+                port:
                   number: 3000
           - path: /?(.*)
             backend:
