@@ -16,6 +16,8 @@ spec:
         - name: items
           image: oliverhalasz/ecom-items
           env:
+            - name: CLUSTER_ENV
+              value: "dev"
             - name: MONGO_URI
               value: "mongodb://items-mongo-srv:27017/items"
             - name: JWT_KEY

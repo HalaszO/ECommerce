@@ -16,6 +16,8 @@ spec:
         - name: auth
           image: oliverhalasz/ecom-auth
           env:
+            - name: CLUSTER_ENV
+              value: "prd"
             - name: MONGO_URI
               value: "mongodb://auth-mongo-srv:27017/auth"
             - name: JWT_KEY

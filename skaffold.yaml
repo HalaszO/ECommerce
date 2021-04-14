@@ -1,17 +1,16 @@
 # Skaffold config file for development
-# Deployed to GoogleCloud
 apiVersion: skaffold/v2beta10
 kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/**
+      - ./infra/k8s-dev/**
+      - ./infra/k8s/NATS/*
 build:
-  googleCloudBuild:
-    projectId: ecommerce-dev-301013
-    concurrency: 0
+  local:
+    push: false
   artifacts:
-    - image: us.gcr.io/ecommerce-dev-301013/auth
+    - image: oliverhalasz/ecom-auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -19,7 +18,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/client
+    - image: oliverhalasz/ecom-client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -27,7 +26,7 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/items
+    - image: oliverhalasz/ecom-items
       context: items
       docker:
         dockerfile: Dockerfile
@@ -35,7 +34,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/orders
+    - image: oliverhalasz/ecom-orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -43,7 +42,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/expiration
+    - image: oliverhalasz/ecom-expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -51,7 +50,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/ecommerce-dev-301013/payments
+    - image: oliverhalasz/ecom-payments
       context: payments
       docker:
         dockerfile: Dockerfile
