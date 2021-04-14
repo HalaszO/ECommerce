@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Local config script
+# Local config
 local_config.sh
+skaffold.yaml
