@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: client-depl
+  name: auth-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: client
+      app: auth
   template:
     metadata:
       labels:
-        app: client
+        app: auth
     spec:
       containers:
-        - name: client
-          image: oliverhalasz/ecom-client
+        - name: auth
+          image: oliverhalasz/ecom-auth
           env:
+            - name: CLUSTER_ENV
+              value: "dev"
+            - name: MONGO_URI
+              value: "mongodb://auth-mongo-srv:27017/auth"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -25,13 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: client-srv
+  name: auth-srv
 spec:
   selector:
-    app: client
+    app: auth
   type: ClusterIP
   ports:
-    - name: client
+    - name: auth
       protocol: TCP
       port: 3000
       targetPort: 3000

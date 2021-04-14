@@ -1,33 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payments-depl
+  name: items-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: payments
+      app: items
   template:
     metadata:
       labels:
-        app: payments
+        app: items
     spec:
       containers:
-        - name: payments
-          image: oliverhalasz/ecom-payments
+        - name: items
+          image: oliverhalasz/ecom-items
           env:
+            - name: CLUSTER_ENV
+              value: "prd"
             - name: MONGO_URI
-              value: "mongodb://payments-mongo-srv:27017/payments"
+              value: "mongodb://items-mongo-srv:27017/items"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-            - name: STRIPE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: stripe-secret
-                  key: STRIPE_KEY
             - name: NATS_URI
               value: "http://nats-srv:4222"
             - name: NATS_CLUSTER_ID
@@ -40,13 +37,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: payments-srv
+  name: items-srv
 spec:
   selector:
-    app: payments
+    app: items
   type: ClusterIP
   ports:
-    - name: payments
+    - name: items
       protocol: TCP
       port: 3000
       targetPort: 3000

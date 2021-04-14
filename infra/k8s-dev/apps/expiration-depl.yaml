@@ -16,6 +16,8 @@ spec:
         - name: expiration
           image: oliverhalasz/ecom-expiration
           env:
+            - name: CLUSTER_ENV
+              value: "dev"
             - name: NATS_URI
               value: "http://nats-srv:4222"
             - name: NATS_CLUSTER_ID
