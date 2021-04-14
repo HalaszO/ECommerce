@@ -7,10 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
-  tls:
-    - hosts:
-        - www.ecommerce-app-prd.xyz
-      secretName: ecommerce-tls-prd
+  #  tls:
+  #    - hosts:
+  #        - www.ecommerce-app-prd.xyz
+  #      secretName: ecommerce-tls-prd
   rules:
     - host: www.ecommerce-app-prd.xyz
       http:
