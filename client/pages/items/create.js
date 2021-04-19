@@ -30,28 +30,28 @@ const createItem = () => {
   };
 
   return (
-    <div>
-      <h2 className="my-4">Create an item</h2>
-      <form onSubmit={onSubmit}>
+    <div className="container-md my-4 mx-4">
+      <h2 className="container-title">Sell an item</h2>
+      <form className="item-form my-4" onSubmit={onSubmit}>
         <div className="form-group">
-          <label>Title</label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="form-control"
+            className="form-control px-3"
+            placeholder="Enter item name"
           />
         </div>
         <div className="form-group">
-          <label>Price</label>
           <input
             value={price}
             onBlur={onBlur}
             onChange={(e) => setPrice(e.target.value)}
-            className="form-control"
+            className="form-control px-3"
+            placeholder="Enter item price (Eur)"
           />
         </div>
         {errors}
-        <button className="btn btn-primary">Submit</button>
+        <button className="btn btn-primary my-3">Submit</button>
       </form>
     </div>
   );

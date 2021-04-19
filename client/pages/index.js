@@ -8,14 +8,21 @@ const LandingPage = ({ currentUser }) => {
       Router.push("/items");
     } else {
       // if not, prompt sign-in
-      setTimeout(() => Router.push("/auth/signin"), 2000);
+      setTimeout(() => Router.push("/auth/signin"), 1000);
     }
   }, [currentUser]);
 
   const redirectMessage = (
-    <div className="container">
-      <h1>You are not signed in yet</h1>
-      <h6>The browser redirects you to the sign-in page shortly</h6>
+    <div
+      className="container-md d-flex flex-column justify-content-center 
+    container-redirect"
+    >
+      <div className="align-self-center">
+        <h2>You are not signed in yet</h2>
+      </div>
+      <div className="align-self-center">
+        The browser redirects you to the sign-in page shortly
+      </div>
     </div>
   );
   return <div>{!currentUser && redirectMessage}</div>;

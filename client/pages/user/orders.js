@@ -1,7 +1,10 @@
 const OrdersDisplay = ({ orders, currentUser }) => {
-  const orderList = (
-    <div>
-      <h2 className="my-4">Orders</h2>
+  const orderList =
+    orders.length === 0 ? (
+      <div className="container-subtitle">
+        You haven't made any purchases yet. Go, buy something for yourself!
+      </div>
+    ) : (
       <table className="table">
         <tr>
           <th>Item name</th>
@@ -18,9 +21,13 @@ const OrdersDisplay = ({ orders, currentUser }) => {
           );
         })}
       </table>
+    );
+  return (
+    <div>
+      <h2 className="my-4 container-title">My orders</h2>
+      {orderList}
     </div>
   );
-  return orderList;
 };
 
 OrdersDisplay.getInitialProps = async (context, client) => {

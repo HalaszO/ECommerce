@@ -5,7 +5,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s-dev/**
-      - ./infra/k8s
+      - ./infra/k8s/nats/**
 build:
   local:
     push: false
@@ -25,6 +25,8 @@ build:
       sync:
         manual:
           - src: "**/*.js"
+            dest: .
+          - src: "styles/**"
             dest: .
     - image: oliverhalasz/ecom-items
       context: items

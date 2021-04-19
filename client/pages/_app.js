@@ -1,12 +1,13 @@
 import "bootstrap/dist/css/bootstrap.css";
+import "../styles/css/global.css";
 import buildClientFromCtx from "../api/buildClientFromCtx";
 import Header from "../components/header";
 
 const appComponent = ({ Component, pageProps, currentUser }) => {
   return (
-    <div>
+    <div className="app-container">
       <Header currentUser={currentUser} />
-      <div className="container">
+      <div className="container-md my-4">
         <Component currentUser={currentUser} {...pageProps} />
       </div>
     </div>

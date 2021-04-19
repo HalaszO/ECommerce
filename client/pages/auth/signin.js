@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/useRequest";
 
-export default () => {
+export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { submitRequest, errors } = useRequest({
@@ -21,27 +21,35 @@ export default () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1 className="my-4">Sign in</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control"
-        />
-      </div>
-      {errors}
-      <button className="btn btn-primary">Sign in</button>
-    </form>
+    <div className="container-md account-form-container">
+      <form className="account-form" onSubmit={onSubmit}>
+        <div className="my-4 text-center">
+          <h1 className="font-weight-bolder">Welcome to Ecommerce!</h1>
+        </div>
+        <div className="form-group">
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-control px-3"
+            placeholder="Email"
+          />
+        </div>
+        <div className="form-group">
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            className="form-control px-3"
+            placeholder="Password"
+          />
+        </div>
+        {errors}
+        <button className="btn btn-primary btn-login align-self-center">
+          Log in
+        </button>
+      </form>
+    </div>
   );
 };
+
+export default LoginPage;
