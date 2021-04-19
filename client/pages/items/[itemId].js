@@ -12,11 +12,11 @@ const ItemDisplay = ({ item }) => {
   });
 
   return (
-    <div>
+    <div class="container-md my-4">
       <h1>{item.title}</h1>
       <h4>{item.price} EUR</h4>
       {errors}
-      <button onClick={() => submitRequest()} className="btn btn-primary">
+      <button onClick={() => submitRequest()} className="btn btn-primary my-3">
         Buy
       </button>
     </div>

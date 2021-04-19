@@ -1,7 +1,9 @@
 const UserItems = ({ items, currentUser }) => {
   const itemList =
-    items === [] ? (
-      <div>You don't have any items for sale yet</div>
+    items.length === 0 ? (
+      <div className="container-subtitle">
+        You don't have any items for sale yet.
+      </div>
     ) : (
       <table className="table">
         <tr>
@@ -20,7 +22,7 @@ const UserItems = ({ items, currentUser }) => {
     );
   return (
     <div>
-      <h2 className="my-4">My items</h2>
+      <h2 className="my-4 container-title">My items</h2>
       {itemList}
     </div>
   );

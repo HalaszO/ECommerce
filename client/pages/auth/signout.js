@@ -7,10 +7,14 @@ export default () => {
     url: "/api/users/signout",
     method: "post",
     body: {},
-    onSuccess: () => setTimeout(async () => await Router.push("/"), 0),
+    onSuccess: () => setTimeout(async () => await Router.push("/"), 1000),
   });
   useEffect(() => {
     submitRequest();
   }, []);
-  return <div>Signing you out...</div>;
+  return (
+    <div className="d-flex display-column justify-content-center">
+      <h4>Signing you out...</h4>
+    </div>
+  );
 };

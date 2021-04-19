@@ -6,21 +6,28 @@ const ItemsDisplay = ({ items }) => {
   });
 
   const itemList = (
-    <div className="my-0 card-deck d-flex flex-wrap">
+    <div className="item-list">
       {availableItems.map((item) => {
         return (
           <div
             key={item.id}
-            className="my-4 mx-4 px-4 py-4 border border-info bg-light shadow-sm"
+            className="my-1 mx-4 px-4 py-4 border-bottom border-secondary 
+            bg-light font-weight-500 shadow-sm row justify-content-between 
+            product-item"
           >
-            <h3>{item.title}</h3>
-            <h4>Price: {item.price} EUR</h4>
-
-            <Link href="/items/[itemId]" as={`/items/${item.id}`}>
-              <a className="badge badge-info">
-                <h4>View</h4>
-              </a>
-            </Link>
+            <div className="col-sm-6 align-self-center product-title">
+              {item.title}
+            </div>
+            <div className="col-sm-4 align-self-center product-price">
+              {item.price} EUR
+            </div>
+            <div className="col-sm-2 product-view-btn">
+              <Link href="/items/[itemId]" as={`/items/${item.id}`}>
+                <a className="btn btn-primary text-uppercase align-self-end">
+                  View
+                </a>
+              </Link>
+            </div>
           </div>
         );
       })}
@@ -28,8 +35,13 @@ const ItemsDisplay = ({ items }) => {
   );
 
   return (
-    <div>
-      <h1 className="my-4">Items</h1>
+    <div className="container-md">
+      <div className="container-title my-4 mx-4">
+        Items
+        <span className="container-subtitle mx-2">
+          ({availableItems.length} items)
+        </span>
+      </div>
       {itemList}
     </div>
   );

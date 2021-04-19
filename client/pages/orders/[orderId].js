@@ -2,9 +2,7 @@ import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
-// To-do: extract key to env var
-const STRIPE_PUB_KEY =
-  "pk_test_51IX6VFCUnkyQdSge8PjmrrdKMDiSk6mzJ3Dbo5j0C8BY8H0SLGeNb33W8JN9lP8vxxLJnbJDDxo1HsSSwPU3BvtB00pnq1Psd2";
+const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY;
 
 const OrderDisplay = ({ order, currentUser }) => {
   const [timeLeft, setTimeLeft] = useState(0);
@@ -38,7 +36,11 @@ const OrderDisplay = ({ order, currentUser }) => {
 
   // If the timer goes below 0, the order has expired
   if (timeLeft < 0) {
-    return <div>Order expired</div>;
+    return (
+      <div className="container-md my-4 text-center">
+        <h2>Order expired</h2>
+      </div>
+    );
   }
 
   // Formatting time
@@ -49,21 +51,23 @@ const OrderDisplay = ({ order, currentUser }) => {
   const formattedTime = `${minutes} : ${seconds}`;
 
   return !paymentCharged ? (
-    <div>
-      <h2>{`Item is reserved for ${formattedTime} min`}</h2>
-      <StripeCheckout
-        token={(id) => {
-          submitRequest({ token: id });
-        }}
-        stripeKey={STRIPE_PUB_KEY}
-        amount={order.item.price * 100}
-        email={currentUser.email}
-      />
+    <div className="container-md payment-container">
+      <h2 className="text-center">{`Item is reserved for ${formattedTime} min`}</h2>
+      <div className="my-4 text-center">
+        <StripeCheckout
+          token={(id) => {
+            submitRequest({ token: id });
+          }}
+          stripeKey={STRIPE_PUBLIC_KEY}
+          amount={order.item.price * 100}
+          email={currentUser.email}
+        />
+      </div>
       {errors}
     </div>
   ) : (
-    <div>
-      <h1>Order successfully paid!</h1>
+    <div class="container-md">
+      <h2 className="my-2 text-center">Order successfully paid!</h2>
     </div>
   );
 };
