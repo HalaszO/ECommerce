@@ -33,7 +33,7 @@ const createItem = () => {
     <div className="container-md my-4 mx-4">
       <h2 className="container-title">Sell an item</h2>
       <form className="item-form my-4" onSubmit={onSubmit}>
-        <div className="form-group">
+        <div className="form-group form-group-medium">
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -41,7 +41,7 @@ const createItem = () => {
             placeholder="Enter item name"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group form-group-short">
           <input
             value={price}
             onBlur={onBlur}

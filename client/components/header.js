@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./logo";
 
 const HeaderComponent = ({ currentUser }) => {
   const links = [
@@ -23,7 +24,10 @@ const HeaderComponent = ({ currentUser }) => {
   return (
     <nav className="navbar navbar-fixed-top navbar-dark flex-column flex-md-row">
       <Link href="/">
-        <a className="navbar-brand">Ecommerce</a>
+        <a className="navbar-brand">
+          Ecommerce
+          <Logo className="ml-2 font-weight-500" />
+        </a>
       </Link>
       {currentUser && (
         <div className="user-greet">Hello there, {currentUser.email}!</div>

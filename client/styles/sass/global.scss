@@ -46,6 +46,11 @@
   font-weight: 600;
 }
 
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 body {
@@ -69,28 +74,37 @@ body {
   box-shadow: 0 2px 16px 0 rgb(0 0 0 / 20%);
 }
 
+.payment-container {
+  margin-top: 4rem;
+}
+
 .account-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  & > div {
-    & > input {
-      width: 25em;
-    }
-  }
 }
 
 .item-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
 
-  & > div {
-    & > input {
-      width: 25em;
-    }
-  }
+.form-group {
+  width: 80%;
+}
+
+.form-group-medium {
+  width: 50%;
+}
+
+.form-group-short {
+  width: 20%;
+}
+
+.alert-danger {
+  background: none;
+  border: none;
 }
 
 .btn-primary {
@@ -103,8 +117,4 @@ body {
 .btn-login {
   font-size: 1.1rem;
   font-weight: 600;
-}
-
-.payment-container {
-  margin-top: 4rem;
 }
