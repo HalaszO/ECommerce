@@ -1,27 +1,36 @@
-import "bootstrap/dist/css/bootstrap.css";
+import Head from "next/head";
 import "../styles/css/global.css";
 import buildClientFromCtx from "../api/buildClientFromCtx";
 import Header from "../components/header";
 
 const appComponent = ({ Component, pageProps, currentUser }) => {
   return (
-    <div className="app-container">
-      <Header currentUser={currentUser} />
-      <div className="container-md my-4">
-        <Component currentUser={currentUser} {...pageProps} />
+    <>
+      <Head>
+        <title>Ecommerce. Sell and buy items!</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </Head>
+      <div className="app-container">
+        <Header currentUser={currentUser} />
+        <div className="container-md my-4">
+          <Component currentUser={currentUser} {...pageProps} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 appComponent.getInitialProps = async (appContext) => {
-  const client = buildClientFromCtx(appContext.ctx); // ctx: (req, res); Getting client based on context (browser or server)
+  //Getting client based on context (browser or server)
+  // ctx: (req, res);
+  const client = buildClientFromCtx(appContext.ctx);
 
-  const { data } = await client.get("/api/users/currentuser"); // currentUser is passed to all components as initial props
+  // currentUser is passed to all components as initial props
+  const { data } = await client.get("/api/users/currentuser");
   console.log(`Current user: ${JSON.stringify(data.currentUser)}`);
   let pageProps = {};
+  // Checking if initial props are needed for the component
   if (appContext.Component.getInitialProps) {
-    // Checking if inital props are required for the component
     pageProps = await appContext.Component.getInitialProps(
       appContext.ctx,
       client,

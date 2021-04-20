@@ -4,6 +4,14 @@ import StripeCheckout from "react-stripe-checkout";
 
 const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY;
 
+const formatTime = (timeLeft) => {
+  let minutes = Math.floor(timeLeft / 60);
+  minutes = minutes > 9 ? minutes.toString() : "0" + minutes.toString();
+  let seconds = timeLeft % 60;
+  seconds = seconds > 9 ? seconds.toString() : "0" + seconds.toString();
+  return `${minutes} : ${seconds}`;
+};
+
 const OrderDisplay = ({ order, currentUser }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [paymentCharged, setPaymentCharged] = useState(false);
@@ -44,11 +52,7 @@ const OrderDisplay = ({ order, currentUser }) => {
   }
 
   // Formatting time
-  let minutes = Math.floor(timeLeft / 60);
-  minutes = minutes > 9 ? minutes.toString() : "0" + minutes.toString();
-  let seconds = timeLeft % 60;
-  seconds = seconds > 9 ? seconds.toString() : "0" + seconds.toString();
-  const formattedTime = `${minutes} : ${seconds}`;
+  const formattedTime = formatTime(timeLeft);
 
   return !paymentCharged ? (
     <div className="container-md payment-container">

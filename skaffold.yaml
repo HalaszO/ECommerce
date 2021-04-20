@@ -24,9 +24,11 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: "**/*.js"
-            dest: .
-          - src: "styles/**"
+          #- src: "**/*.js"
+          #  dest: .
+          #- src: "styles/**"
+          #  dest: .
+          - src: "**"
             dest: .
     - image: oliverhalasz/ecom-items
       context: items
