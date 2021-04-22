@@ -23,7 +23,7 @@ export const LoginPage = () => {
   return (
     <div className="container-md account-form-container">
       <form className="account-form" onSubmit={onSubmit}>
-        <div className="my-4 text-center">
+        <div className="my-3 text-center">
           <h1 className="font-weight-bolder">Welcome to Ecommerce!</h1>
         </div>
         <div className="form-group">

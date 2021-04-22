@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "process-sass": "sass styles/sass:styles/css",
-    "dev": "npm run process-sass && next"
+    "preprocess": "sass styles/sass:styles/css",
+    "dev": "npm run preprocess && next dev",
+    "build": "npm run preprocess && next build --profile",
+    "start": "npm run build && next start"
   },
   "keywords": [],
   "author": "",
