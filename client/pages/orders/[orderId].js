@@ -54,6 +54,8 @@ const OrderDisplay = ({ order, currentUser }) => {
   // Formatting time
   const formattedTime = formatTime(timeLeft);
 
+  console.log(`Stripe key: ${STRIPE_PUBLIC_KEY}`);
+
   return !paymentCharged ? (
     <div className="container-md payment-container">
       <h2 className="text-center">{`Item is reserved for ${formattedTime} min`}</h2>

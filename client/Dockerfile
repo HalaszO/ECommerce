@@ -5,4 +5,5 @@ COPY package.json .
 RUN npm install
 COPY . .
 
-CMD ["npm", "run", "dev"]
+# based on the config, this will be overridden by the deployment
+CMD ["npm", "run", "start"]

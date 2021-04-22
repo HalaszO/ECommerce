@@ -23,8 +23,8 @@ const SignUpPage = () => {
   return (
     <div className="container-md account-form-container">
       <form className="account-form" onSubmit={onSubmit}>
-        <div className="my-2 text-center">
-          <h1 className="font-weight-bolder account-form-title">Register</h1>
+        <div className="my-3 text-center">
+          <h1 className="font-weight-bolder">Register</h1>
           <p>Sign up here for an account</p>
         </div>
         <div className="form-group">
