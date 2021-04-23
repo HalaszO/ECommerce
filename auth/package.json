@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --poll src/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev --poll src/index.ts",
+    "start": "NODE_ENV=production ts-node src/index.ts",
     "test": "jest --watchAll --no-cache",
     "test:ci": "jest"
   },
@@ -29,6 +30,7 @@
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.11",
+    "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^3.9.7"
   },

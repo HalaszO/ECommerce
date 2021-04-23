@@ -1,7 +1,9 @@
 name: payments-tests
 
 on:
-  pull_request:
+  push:
+    branches:
+      - master
     paths:
       - /payments/**
 

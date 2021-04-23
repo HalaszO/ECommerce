@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest #build agent image
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && docker build -t oliverhalasz/ecom-auth .
+      # building image for production, hence the arg referenced in the dockerfile
+      - run: cd auth && docker build -t oliverhalasz/ecom-auth --build-arg CMD_ARG=start .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

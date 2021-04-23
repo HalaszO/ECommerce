@@ -18,7 +18,7 @@ spec:
           env:
             - name: CLUSTER_ENV
               value: "prd"
-            - name: STRIPE_PUBLIC_KEY
+            - name: STRIPE_PUB_KEY
               value: "pk_test_51IX6VFCUnkyQdSge8PjmrrdKMDiSk6mzJ3Dbo5j0C8BY8H0SLGeNb33W8JN9lP8vxxLJnbJDDxo1HsSSwPU3BvtB00pnq1Psd2"
             - name: JWT_KEY
               valueFrom:
