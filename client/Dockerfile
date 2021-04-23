@@ -6,4 +6,8 @@ RUN npm install
 COPY . .
 
 # based on the config, this will be overridden by the deployment
-CMD ["npm", "run", "start"]
+# different script runs for each env, default: dev
+ARG CMD_ARG=start
+ENV CMD_ARG=${CMD_ARG}
+
+CMD npm run ${CMD_ARG}
