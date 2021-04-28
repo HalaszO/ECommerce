@@ -134,8 +134,4 @@ const OrderDisplay = ({ user, order }) => {
   );
 };
 
-OrderDisplay.getInitialProps = async (context, client) => {
-  const { orderId } = context.query;
-};
-
 export default OrderDisplay;
