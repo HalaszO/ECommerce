@@ -1,4 +1,17 @@
-const OrdersDisplay = ({ orders, currentUser }) => {
+import useSWR from "swr";
+import useUser from "../../hooks/useUser";
+import swrFetcher from "../../api/swrFetcher";
+
+const UserOrders = () => {
+  // Auth
+  const { user } = useUser({ redirectTo: "/auth/login" });
+  // Data fetch
+  const { data: orders } = useSWR(`/api/orders`, swrFetcher);
+
+  if (!user || !orders) {
+    return <div className="container-subtitle">Loading...</div>;
+  }
+
   const orderList =
     orders.length === 0 ? (
       <div className="container-subtitle">
@@ -13,7 +26,7 @@ const OrdersDisplay = ({ orders, currentUser }) => {
         </tr>
         {orders.map((order) => {
           return (
-            <tr>
+            <tr key={order.id}>
               <td>{order.item.title}</td>
               <td>{order.item.price} Eur</td>
               <td>{order.status}</td>
@@ -30,10 +43,4 @@ const OrdersDisplay = ({ orders, currentUser }) => {
   );
 };
 
-OrdersDisplay.getInitialProps = async (context, client) => {
-  const { data } = await client.get("/api/orders");
-
-  return { orders: data };
-};
-
-export default OrdersDisplay;
+export default UserOrders;

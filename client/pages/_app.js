@@ -20,6 +20,10 @@ const appComponent = ({ Component, pageProps, currentUser }) => {
   );
 };
 
+//////////////
+// The following needs to be removed and the Header element requires a new strategy
+//////////////
+
 appComponent.getInitialProps = async (appContext) => {
   //Getting client based on context (browser or server)
   // ctx: (req, res);

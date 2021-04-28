@@ -1,4 +1,15 @@
-const UserItems = ({ items, currentUser }) => {
+import useSWR from "swr";
+import useUser from "../../hooks/useUser";
+import swrFetcher from "../../api/swrFetcher";
+
+const UserItems = () => {
+  const { user } = useUser({ redirectTo: "/auth/login" });
+  const { data: items } = useSWR(`/api/items?user=${user.id}`, swrFetcher);
+  // If data or user is not there (yet), display loading screen
+  if (!user || !items) {
+    return <div className="container-subtitle">Loading...</div>;
+  }
+
   const itemList =
     items.length === 0 ? (
       <div className="container-subtitle">
@@ -12,7 +23,7 @@ const UserItems = ({ items, currentUser }) => {
         </tr>
         {items.map((item) => {
           return (
-            <tr>
+            <tr key={item.id}>
               <td>{item.title}</td>
               <td>{item.price} Eur</td>
             </tr>
@@ -26,12 +37,6 @@ const UserItems = ({ items, currentUser }) => {
       {itemList}
     </div>
   );
-};
-
-UserItems.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get(`/api/items?user=${currentUser.id}`);
-  console.log(JSON.stringify(data));
-  return { items: data };
 };
 
 export default UserItems;

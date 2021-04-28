@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Logo from "./logo";
 
-const HeaderComponent = ({ currentUser }) => {
+export default function HeaderComponent({ currentUser }) {
   const links = [
-    !currentUser && { label: "Register", href: "/auth/signup" },
-    !currentUser && { label: "Log in", href: "/auth/signin" },
+    !currentUser && { label: "Register", href: "/auth/register" },
+    !currentUser && { label: "Log in", href: "/auth/login" },
     currentUser && { label: "Sell an item", href: "/items/create" },
     currentUser && { label: "My items", href: "/user/items" },
     currentUser && { label: "My orders", href: "/user/orders" },
@@ -37,6 +37,4 @@ const HeaderComponent = ({ currentUser }) => {
       </div>
     </nav>
   );
-};
-
-export default HeaderComponent;
+}

@@ -7,7 +7,7 @@ const buildClientFromCtx = ({ req }) => {
     let baseURL;
     if (process.env.CLUSTER_ENV === "prd") {
       // prod ingress domain
-      baseURL = "http://www.ecommerce-app-prd.xyz/";
+      baseURL = "https://www.ecommerce-app-prd.xyz/";
     } else {
       // dev and default
       baseURL = "http://ingress-nginx-srv";
@@ -23,5 +23,7 @@ const buildClientFromCtx = ({ req }) => {
     });
   }
 };
+
+// To-do: extract domains to config file
 
 export default buildClientFromCtx;
