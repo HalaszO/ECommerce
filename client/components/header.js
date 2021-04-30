@@ -1,10 +1,18 @@
 import Link from "next/link";
 import Logo from "./logo";
+import PropTypes from "prop-types";
 
-const HeaderComponent = ({ currentUser }) => {
+HeaderComponent.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+};
+
+export default function HeaderComponent({ currentUser }) {
   const links = [
-    !currentUser && { label: "Register", href: "/auth/signup" },
-    !currentUser && { label: "Log in", href: "/auth/signin" },
+    !currentUser && { label: "Register", href: "/auth/register" },
+    !currentUser && { label: "Log in", href: "/auth/login" },
     currentUser && { label: "Sell an item", href: "/items/create" },
     currentUser && { label: "My items", href: "/user/items" },
     currentUser && { label: "My orders", href: "/user/orders" },
@@ -21,22 +29,28 @@ const HeaderComponent = ({ currentUser }) => {
       );
     });
 
+  const brandName = (
+    <Link href="/">
+      <a className="navbar-brand">
+        Ecommerce
+        <Logo className="ml-2 font-weight-500" />
+      </a>
+    </Link>
+  );
+
+  const greetingMessage = currentUser && (
+    <div className="user-greet d-none d-md-block">
+      Hello there, {currentUser.email}!
+    </div>
+  );
+
   return (
     <nav className="navbar navbar-fixed-top navbar-dark flex-column flex-md-row">
-      <Link href="/">
-        <a className="navbar-brand">
-          Ecommerce
-          <Logo className="ml-2 font-weight-500" />
-        </a>
-      </Link>
-      {currentUser && (
-        <div className="user-greet">Hello there, {currentUser.email}!</div>
-      )}
+      {brandName}
+      {greetingMessage}
       <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+        <ul className="nav nav-item-list">{links}</ul>
       </div>
     </nav>
   );
-};
-
-export default HeaderComponent;
+}

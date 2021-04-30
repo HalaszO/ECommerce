@@ -1,0 +1,23 @@
+.account-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group {
+  width: 80%;
+}
+
+.form-group-medium {
+  width: 50%;
+}
+
+.form-group-short {
+  width: 20%;
+}
