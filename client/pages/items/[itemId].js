@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { useState } from "react";
 import useRequest from "../../hooks/useRequest";
+import PropTypes from "prop-types";
 import AuthReqModal from "../../components/modals/authReqModal";
 
 const ItemDisplay = ({ item, currentUser }) => {
@@ -51,6 +52,20 @@ ItemDisplay.getInitialProps = async (context, client) => {
   const { data } = await client.get(`/api/items/${itemId}`);
 
   return { item: data };
+};
+
+ItemDisplay.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  item: {
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    userId: PropTypes.string,
+    orderId: PropTypes.string,
+  },
 };
 
 export default ItemDisplay;

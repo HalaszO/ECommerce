@@ -3,11 +3,6 @@ import Button from "react-bootstrap/Button";
 import Router from "next/router";
 import PropTypes from "prop-types";
 
-AuthReqModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  handleModalShow: PropTypes.func.isRequired,
-};
-
 export default function AuthReqModal({ show, handleModalShow }) {
   return (
     <Modal show={show} onHide={() => handleModalShow(false)}>
@@ -27,3 +22,8 @@ export default function AuthReqModal({ show, handleModalShow }) {
     </Modal>
   );
 }
+
+AuthReqModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleModalShow: PropTypes.func.isRequired,
+};

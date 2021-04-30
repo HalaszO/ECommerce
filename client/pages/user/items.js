@@ -1,22 +1,6 @@
 import Router from "next/router";
 import PropTypes from "prop-types";
 
-UserItems.propTypes = {
-  currentUser: {
-    id: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  },
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      userId: PropTypes.string,
-      orderId: PropTypes.string,
-    })
-  ),
-};
-
 const UserItems = ({ items, currentUser }) => {
   // Redirect if not logged in
   if (!currentUser) return Router.push("/auth/login");
@@ -54,6 +38,22 @@ UserItems.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get(`/api/items?user=${currentUser.id}`);
   console.log(JSON.stringify(data));
   return { items: data };
+};
+
+UserItems.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      userId: PropTypes.string,
+      orderId: PropTypes.string,
+    })
+  ),
 };
 
 export default UserItems;

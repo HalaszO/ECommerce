@@ -3,21 +3,6 @@ import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import PropTypes from "prop-types";
 
-OrderDisplay.propTypes = {
-  currentUser: {
-    id: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  },
-  order: {
-    id: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
-    userId: PropTypes.string,
-    expiresAt: PropTypes.string,
-    item: PropTypes.object,
-  },
-};
-
 // Public Stripe key
 const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY;
 
@@ -118,6 +103,21 @@ OrderDisplay.getInitialProps = async (context, client) => {
   const { orderId } = context.query;
   const { data } = await client.get(`/api/orders/${orderId}`);
   return { order: data };
+};
+
+OrderDisplay.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  order: {
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    userId: PropTypes.string,
+    expiresAt: PropTypes.string,
+    item: PropTypes.object,
+  },
 };
 
 export default OrderDisplay;

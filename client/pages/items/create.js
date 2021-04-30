@@ -3,13 +3,6 @@ import useRequest from "../../hooks/useRequest";
 import PropTypes from "prop-types";
 import SuccessModal from "../../components/modals/successModal";
 
-CreateItem.propTypes = {
-  currentUser: {
-    id: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  },
-};
-
 const CreateItem = ({ currentUser }) => {
   // Modal display state
   const [showModal, setShowModal] = useState(false);
@@ -90,6 +83,13 @@ const CreateItem = ({ currentUser }) => {
       ></SuccessModal>
     </div>
   );
+};
+
+CreateItem.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
 };
 
 export default CreateItem;

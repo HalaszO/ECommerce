@@ -2,13 +2,6 @@ import Link from "next/link";
 import Logo from "./logo";
 import PropTypes from "prop-types";
 
-HeaderComponent.propTypes = {
-  currentUser: {
-    id: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  },
-};
-
 export default function HeaderComponent({ currentUser }) {
   const links = [
     !currentUser && { label: "Register", href: "/auth/register" },
@@ -54,3 +47,10 @@ export default function HeaderComponent({ currentUser }) {
     </nav>
   );
 }
+
+HeaderComponent.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+};

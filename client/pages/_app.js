@@ -4,15 +4,6 @@ import "../styles/scss/global.scss";
 import buildClient from "../api/buildClient";
 import Header from "../components/header";
 
-AppComponent.propTypes = {
-  currentUser: {
-    id: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  },
-  pageProps: PropTypes.object,
-  Component: PropTypes.elementType,
-};
-
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <>
@@ -55,6 +46,15 @@ AppComponent.getInitialProps = async (appContext) => {
     pageProps,
     currentUser,
   };
+};
+
+AppComponent.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  pageProps: PropTypes.object,
+  Component: PropTypes.elementType,
 };
 
 export default AppComponent;
