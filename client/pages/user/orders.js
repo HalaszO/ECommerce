@@ -1,8 +1,28 @@
 import Router from "next/router";
+import PropTypes from "prop-types";
+
+UserOrders.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  orders: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      status: PropTypes.string.isRequired,
+      userId: PropTypes.string,
+      expiresAt: PropTypes.string,
+      item: PropTypes.object,
+    })
+  ),
+};
 
 const UserOrders = ({ orders, currentUser }) => {
   // Redirect if not logged in
   if (!currentUser) return Router.push("/auth/login");
+  console.log(JSON.stringify(orders));
+  console.log(JSON.stringify(currentUser));
 
   const orderList =
     orders.length === 0 ? (

@@ -1,4 +1,21 @@
 import Router from "next/router";
+import PropTypes from "prop-types";
+
+UserItems.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      userId: PropTypes.string,
+      orderId: PropTypes.string,
+    })
+  ),
+};
 
 const UserItems = ({ items, currentUser }) => {
   // Redirect if not logged in

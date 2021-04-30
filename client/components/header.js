@@ -1,5 +1,13 @@
 import Link from "next/link";
 import Logo from "./logo";
+import PropTypes from "prop-types";
+
+HeaderComponent.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+};
 
 export default function HeaderComponent({ currentUser }) {
   const links = [
@@ -31,7 +39,9 @@ export default function HeaderComponent({ currentUser }) {
   );
 
   const greetingMessage = currentUser && (
-    <div className="user-greet">Hello there, {currentUser.email}!</div>
+    <div className="user-greet d-none d-md-block">
+      Hello there, {currentUser.email}!
+    </div>
   );
 
   return (
@@ -39,7 +49,7 @@ export default function HeaderComponent({ currentUser }) {
       {brandName}
       {greetingMessage}
       <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+        <ul className="nav nav-item-list">{links}</ul>
       </div>
     </nav>
   );

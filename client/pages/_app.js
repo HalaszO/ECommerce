@@ -1,8 +1,17 @@
-import App from "next/app";
 import Head from "next/head";
+import PropTypes from "prop-types";
 import "../styles/scss/global.scss";
 import buildClient from "../api/buildClient";
 import Header from "../components/header";
+
+AppComponent.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  pageProps: PropTypes.object,
+  Component: PropTypes.elementType,
+};
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (

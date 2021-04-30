@@ -1,6 +1,22 @@
 import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
+import PropTypes from "prop-types";
+
+OrderDisplay.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+  order: {
+    id: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    userId: PropTypes.string,
+    expiresAt: PropTypes.string,
+    item: PropTypes.object,
+  },
+};
 
 // Public Stripe key
 const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY;
@@ -76,7 +92,7 @@ const OrderDisplay = ({ order, currentUser }) => {
   // Stripe errors are handled inside the element
   // "token" prop contains the success callback
   return paymentCharged ? (
-    <div class="container-md">
+    <div className="container-md">
       <h2 className="my-2 text-center">Order successfully paid!</h2>
     </div>
   ) : (

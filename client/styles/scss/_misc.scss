@@ -27,6 +27,12 @@
   text-transform: uppercase;
 }
 
+.nav-item-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .nav-item {
   font-weight: 400;
 }

@@ -1,4 +1,18 @@
 import Link from "next/link";
+import PropTypes from "prop-types";
+
+ItemsDisplay.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      userId: PropTypes.string,
+      orderId: PropTypes.string,
+    })
+  ),
+};
+
 const ItemsDisplay = ({ items }) => {
   // check which items are not currently reserved
   const availableItems = items.filter((item) => {

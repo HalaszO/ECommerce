@@ -1,7 +1,14 @@
 import { useState } from "react";
 import useRequest from "../../hooks/useRequest";
-
+import PropTypes from "prop-types";
 import SuccessModal from "../../components/modals/successModal";
+
+CreateItem.propTypes = {
+  currentUser: {
+    id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  },
+};
 
 const CreateItem = ({ currentUser }) => {
   // Modal display state
