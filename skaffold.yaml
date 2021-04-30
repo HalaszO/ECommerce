@@ -5,6 +5,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s-dev/**
+      - ./infra/k8s-dev
       - ./infra/k8s/nats/**
 build:
   local:
@@ -22,14 +23,12 @@ build:
       context: client
       docker:
         dockerfile: Dockerfile
-      sync:
-        manual:
-          #- src: "**/*.js"
-          #  dest: .
-          #- src: "styles/**"
-          #  dest: .
-          - src: "**"
-            dest: .
+      #sync:
+      #manual:
+      #- src: "styles/**"
+      #  dest: .
+      #- src: "**"
+      # dest: .
     - image: oliverhalasz/ecom-items
       context: items
       docker:

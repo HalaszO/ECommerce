@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/useRequest";
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { submitRequest, errors } = useRequest({
@@ -21,7 +21,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="container-md account-form-container">
+    <div className="account-form-container">
       <form className="account-form" onSubmit={onSubmit}>
         <div className="my-3 text-center">
           <h1 className="font-weight-bolder">Welcome to Ecommerce!</h1>

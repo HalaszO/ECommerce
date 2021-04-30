@@ -21,7 +21,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="container-md account-form-container">
+    <div className="account-form-container">
       <form className="account-form" onSubmit={onSubmit}>
         <div className="my-3 text-center">
           <h1 className="font-weight-bolder">Register</h1>

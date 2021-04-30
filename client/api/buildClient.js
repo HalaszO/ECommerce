@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const buildClientFromCtx = ({ req }) => {
+const buildClient = ({ req }) => {
   // Deciding whether we are on the server or the client
   if (typeof window === "undefined") {
     // server
     let baseURL;
     if (process.env.CLUSTER_ENV === "prd") {
       // prod ingress domain
-      baseURL = "http://www.ecommerce-app-prd.xyz/";
+      baseURL = "https://www.ecommerce-app-prd.xyz/";
     } else {
-      // dev and default
+      // dev and default (local development cluster)
       baseURL = "http://ingress-nginx-srv";
     }
     return axios.create({
@@ -24,4 +24,4 @@ const buildClientFromCtx = ({ req }) => {
   }
 };
 
-export default buildClientFromCtx;
+export default buildClient;

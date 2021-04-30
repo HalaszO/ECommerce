@@ -1,4 +1,9 @@
+import Router from "next/router";
+
 const UserItems = ({ items, currentUser }) => {
+  // Redirect if not logged in
+  if (!currentUser) return Router.push("/auth/login");
+
   const itemList =
     items.length === 0 ? (
       <div className="container-subtitle">
@@ -12,7 +17,7 @@ const UserItems = ({ items, currentUser }) => {
         </tr>
         {items.map((item) => {
           return (
-            <tr>
+            <tr key={item.id}>
               <td>{item.title}</td>
               <td>{item.price} Eur</td>
             </tr>
